@@ -4,5 +4,5 @@ services:
     build: .
     environment:
       PORT: 8080
-    ports:
+    ports:  
       - "8080:8080"

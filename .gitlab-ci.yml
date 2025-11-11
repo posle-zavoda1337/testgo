@@ -2,22 +2,18 @@ stages:
   - build
   - test
 
-variables:
-  DOCKER_DRIVER: overlay2
-
-before_script:
-  - docker info  # проверим, что Docker доступен
-
-build:
+build-job:
   stage: build
   script:
-    - docker-compose build
+    - docker build -t server .
 
-test:
+test-job:
   stage: test
-  services:
-    - docker:dind  # Docker-in-Docker
+  image: golang:1.25.4-alpine3.22 
   script:
-    - docker-compose up -d
-    - go test ./...
-    - docker-compose down
+    go test ./...
+
+deploy-job:
+  stage: deploy
+  script:
+    - docker-compose up -d    
