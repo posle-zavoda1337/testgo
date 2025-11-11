@@ -1,14 +1,8 @@
-version: '3.8'
+version: "3.9"
 services:
-  web:
+  app:
     build: .
+    environment:
+      PORT: 8080
     ports:
       - "8080:8080"
-    environment:
-      - APP_ENV=development
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
