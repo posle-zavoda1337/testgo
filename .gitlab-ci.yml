@@ -2,12 +2,17 @@ stages:
   - build
   - test
 
+image: golang:1.25.4-alpine3.22
+
 build-job:
   stage: build
-  image: golang:1.25.4-alpine3.22
   script:
-    - docker build -t my-golang-server
+    - echo "building golang_app"
+    - go build -o myapp
 
 test-job:
   stage: test
-  script: go test ./...
+  script: 
+    docker-compose up --build
+    go test ./...
+    docker-compose down

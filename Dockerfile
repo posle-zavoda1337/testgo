@@ -1,6 +1,6 @@
 FROM golang:1.25.4-alpine3.22 as builder
 
-# ENV CGO_ENABLED=0 GOOS=linux GOARCH=am64
+ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 
 WORKDIR /app
 
