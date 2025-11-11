@@ -1,9 +1,13 @@
 stages:
+  - build
   - test
 
-hello:
-  stage: test
-  image: alpine:latest
+build-job:
+  stage: build
+  image: golang:1.25.4-alpine3.22
   script:
-    - echo "CI is alive!"
-    - cat main.go
+    - docker build -t my-golang-server
+
+test-job:
+  stage: test
+  script: go test ./...
