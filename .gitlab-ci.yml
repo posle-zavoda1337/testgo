@@ -2,15 +2,22 @@ stages:
   - build
   - test
 
-image: golang:1.25.4-alpine3.22
+variables:
+  DOCKER_DRIVER: overlay2
 
-build-job:
+before_script:
+  - docker info  # проверим, что Docker доступен
+
+build:
   stage: build
   script:
-    - echo "building golang_app"
-    - go build -o myapp
+    - docker-compose build
 
-test-job:
+test:
   stage: test
-  script: 
-    go test ./...
+  services:
+    - docker:dind  # Docker-in-Docker
+  script:
+    - docker-compose up -d
+    - go test ./...
+    - docker-compose down
