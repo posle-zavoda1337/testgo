@@ -20,6 +20,8 @@ func main() {
 		port = "8080"
 	}
 
+	fmt.Println("HELLO")
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hello, world! You requested: %s", r.URL.Path)
 	})
